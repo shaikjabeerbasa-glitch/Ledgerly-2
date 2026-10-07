@@ -40,11 +40,9 @@ Managing personal finances often becomes messy when data is scattered across spr
 ## Project structure
 
 ```text
-Ledgerly/
 ├── index.html
 ├── styles.css
 ├── package.json
-├── package-lock.json
 ├── README.md
 ├── js/
 │   ├── app.js
@@ -53,10 +51,7 @@ Ledgerly/
 │   ├── state.js
 │   ├── storage.js
 │   └── validation.js
-├── tests/
-│   ├── core.test.js
-│   └── dom.test.js
-└── .gitignore
+
 ```
 
 ## Getting started
