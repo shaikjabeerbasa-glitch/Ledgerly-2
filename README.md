@@ -1,36 +1,134 @@
 # Ledgerly
 
-A single-page finance manager using vanilla HTML, CSS and JavaScript. Native canvas charts need no CDN or application dependencies.
+A lightweight personal finance dashboard built with vanilla HTML, CSS, and JavaScript.
 
-## Run
+Ledgerly helps you manage accounts, transactions, recurring bills, budgets, and categories in one local-first app. It is designed for people who want a simple, private, browser-based financial tool without needing a backend, subscription, or heavy framework.
 
-1. Extract the entire ZIP, keeping the `js` folder alongside `index.html`.
-2. Open the Ledgerly folder in VS Code and use Live Server, or run `python3 -m http.server 8000` in that folder.
-3. Open `http://localhost:8000`.
+## Why this project exists
 
-Use an HTTP server rather than double-clicking index.html: browsers restrict ES modules on file URLs.
+Managing personal finances often becomes messy when data is scattered across spreadsheets, notes, banking apps, and manual logs. Ledgerly aims to solve that by giving users a clear and focused workspace to:
 
-## Features and behavior
+- track income and spending
+- organize transactions by category
+- set monthly budgets
+- manage recurring transactions
+- review trends and totals in a dashboard
+- keep data safe with backups and undo support
 
-- Accounts, transactions, categories, monthly budgets and recurring rules support create, read, update and delete.
-- Transfers are two linked records. Editing either side preserves the original direction; changing transaction type removes the old pair. Deleting either side, including through bulk deletion, removes both.
-- Deleting an account removes its transactions, their transfer peers and its recurring rules. Deleting a category removes its children and their budgets/rules; historical transactions remain uncategorized.
-- Category nesting is limited to one parent and one child level. Parent budgets include child spending. Budgets are unique per category and month; yellow begins at 80%, red when spending exceeds the limit.
-- Recurring income/expenses catch up when opened. Processed dates and transaction provenance prevent duplicates. Monthly schedules retain their original day, clamping to February/month-end as needed. Generated entries and rule changes share one undo action.
-- Transactions combine date/account/category/type/amount/text filters, sorting by up to three columns, pagination, selection, bulk deletion and recategorization. Clicking a sort heading moves it to first priority and toggles its direction.
-- Undo/redo keeps the last 20 changes during the current session. Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z work outside text fields; text fields retain their native editing shortcuts.
-- CSV import maps columns, validates every row and shows all errors. No rows are imported until all rows are valid. CSV export includes each transfer once. Quoted commas, multiline fields, escaped quotes and UTF-8 BOM are supported.
-- JSON backups validate account/category references, IDs, amounts, dates, transfer pairs, budgets and recurring intervals before replacement. Invalid backups leave current data unchanged.
-- localStorage persists data. Corrupt saved bytes are retained under `ledgerly-state-v1-corrupt-backup` before defaults load. Storage failures show a notice to export a backup.
-- Hash routes support browser back/forward. Theme, keyboard controls, modal focus management, accessible chart descriptions and responsive layouts are included.
-- USD/INR selects the unit for the stored amounts; it does not perform foreign-exchange conversion. All accounts share that unit.
+## Features
 
-The app starts with demo records. Settings → Reset all data gives an empty workspace. Export a backup before deleting your own financial data.
+- Multi-account tracking for personal finance records
+- Transaction management with create, edit, delete, filter, sort, and bulk actions
+- Category hierarchy with nested parent/child organization
+- Budget tracking with monthly limits and warning states
+- Recurring transaction scheduling
+- Dashboard charts and summary metrics
+- CSV import and export
+- JSON backup and restore functionality
+- Undo/redo support for the current session
+- Dark mode and responsive layout
+- Local browser persistence using `localStorage`
 
-## Verification
+## Tech stack
 
-Run `npm install` followed by `npm test` (Node 22.12+). jsdom is a development-only dependency; the app itself uses no libraries.
+- HTML5
+- CSS3
+- JavaScript (ES modules)
+- Canvas charts
+- localStorage for persistence
+- Node.js + jsdom for tests
 
-Core tests cover integrity validation, backups, corrupt storage, category nesting, CSV, budgets and filtering/sorting. DOM integration checks cover all CRUD forms, linked transfers and conversion, undo/redo, recurring duplicate prevention and month-end dates, CSV import/errors, bulk actions and deletion cascades.
+## Project structure
 
-These automated checks passed in the repair environment. A real browser could not be installed there, so visual layout and browser-specific keyboard behavior still need a manual browser check.
+```text
+Ledgerly/
+├── index.html
+├── styles.css
+├── package.json
+├── package-lock.json
+├── README.md
+├── js/
+│   ├── app.js
+│   ├── render.js
+│   ├── routing.js
+│   ├── state.js
+│   ├── storage.js
+│   └── validation.js
+├── tests/
+│   ├── core.test.js
+│   └── dom.test.js
+└── .gitignore
+```
+
+## Getting started
+
+### Prerequisites
+
+- Node.js
+- Modern browser
+- Optional: Live Server extension for VS Code
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run the app locally
+
+Because this project uses ES modules, it should be served through a local web server instead of opened directly as a file.
+
+#### Option 1: Live Server
+
+1. Open the project folder in VS Code
+2. Right-click `index.html`
+3. Select "Open with Live Server"
+
+#### Option 2: Python server
+
+```bash
+cd "/path/to/Ledgerly"
+python3 -m http.server 8000
+```
+
+Then visit:
+
+```text
+http://localhost:8000
+```
+
+## Screenshots
+
+The app includes views for:
+
+- Dashboard
+- Accounts
+- Transactions
+- Budgets
+- Categories
+- Recurring transactions
+- Settings
+
+
+
+## Data handling and safety
+
+- Data is saved in the browser using `localStorage`
+- Invalid or corrupted stored state is detected and preserved for recovery
+- JSON backups are validated before applying changes
+- CSV imports are validated before new records are added
+- Undo/redo protects against accidental changes in-session
+
+## Notes
+
+This project is a local-first finance tracker and is especially useful for learning front-end app architecture, state management, validation, CSV handling, and browser-based persistence.
+
+## License
+
+This project is provided as-is for personal and educational use.
+
+## Summary
+
+Ledgerly is a clean, local-first finance manager built to make everyday money tracking easier, more structured, and more transparent without the overhead of a full SaaS product.
+
+
