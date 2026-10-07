@@ -36,7 +36,6 @@ Managing personal finances often becomes messy when data is scattered across spr
 - JavaScript (ES modules)
 - Canvas charts
 - localStorage for persistence
-- Node.js + jsdom for tests
 
 ## Project structure
 
